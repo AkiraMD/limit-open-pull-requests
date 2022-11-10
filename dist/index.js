@@ -25563,19 +25563,19 @@ var Enforcer = (function () {
                         return [4, this.client.closePullRequest(triggeringPR, "Sorry, this pull request will be closed. The limit for open pull requests was exceeded.")];
                     case 2:
                         _a.sent();
-                        _a.label = 3;
+                        return [2];
                     case 3:
                         if (!this.closeBasedOnAuthorLimit(openPRs, triggeringPR)) return [3, 5];
                         return [4, this.client.closePullRequest(triggeringPR, "Sorry, this pull request will be closed. You have too many open PRs.")];
                     case 4:
                         _a.sent();
-                        _a.label = 5;
+                        return [2];
                     case 5:
                         if (!this.closeBasedOnLabelLimits(openPRs, triggeringPR)) return [3, 7];
                         return [4, this.client.closePullRequest(triggeringPR, "Sorry, this pull request will be closed. The limit for open PRs with these labels was exceeded.")];
                     case 6:
                         _a.sent();
-                        _a.label = 7;
+                        return [2];
                     case 7: return [3, 9];
                     case 8:
                         core.info("The triggering PR is closed, no action will be taken.");
