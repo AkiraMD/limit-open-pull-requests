@@ -2007,7 +2007,7 @@ module.exports = require("https");
 /***/ 215:
 /***/ (function(module) {
 
-module.exports = {"_args":[["@octokit/rest@16.43.1","/Users/lizgorbonos/Documents/dev-other/limit-open-pull-requests"]],"_from":"@octokit/rest@16.43.1","_id":"@octokit/rest@16.43.1","_inBundle":false,"_integrity":"sha512-gfFKwRT/wFxq5qlNjnW2dh+qh74XgTQ2B179UX5K1HYCluioWj8Ndbgqw2PVqa1NnVJkGHp2ovMpVn/DImlmkw==","_location":"/@octokit/rest","_phantomChildren":{"@octokit/types":"2.15.0","deprecation":"2.3.1","once":"1.4.0","os-name":"3.1.0"},"_requested":{"type":"version","registry":true,"raw":"@octokit/rest@16.43.1","name":"@octokit/rest","escapedName":"@octokit%2frest","scope":"@octokit","rawSpec":"16.43.1","saveSpec":null,"fetchSpec":"16.43.1"},"_requiredBy":["/@actions/github"],"_resolved":"https://registry.npmjs.org/@octokit/rest/-/rest-16.43.1.tgz","_spec":"16.43.1","_where":"/Users/lizgorbonos/Documents/dev-other/limit-open-pull-requests","author":{"name":"Gregor Martynus","url":"https://github.com/gr2m"},"bugs":{"url":"https://github.com/octokit/rest.js/issues"},"bundlesize":[{"path":"./dist/octokit-rest.min.js.gz","maxSize":"33 kB"}],"contributors":[{"name":"Mike de Boer","email":"info@mikedeboer.nl"},{"name":"Fabian Jakobs","email":"fabian@c9.io"},{"name":"Joe Gallo","email":"joe@brassafrax.com"},{"name":"Gregor Martynus","url":"https://github.com/gr2m"}],"dependencies":{"@octokit/auth-token":"^2.4.0","@octokit/plugin-paginate-rest":"^1.1.1","@octokit/plugin-request-log":"^1.0.0","@octokit/plugin-rest-endpoint-methods":"2.4.0","@octokit/request":"^5.2.0","@octokit/request-error":"^1.0.2","atob-lite":"^2.0.0","before-after-hook":"^2.0.0","btoa-lite":"^1.0.0","deprecation":"^2.0.0","lodash.get":"^4.4.2","lodash.set":"^4.3.2","lodash.uniq":"^4.5.0","octokit-pagination-methods":"^1.1.0","once":"^1.4.0","universal-user-agent":"^4.0.0"},"description":"GitHub REST API client for Node.js","devDependencies":{"@gimenete/type-writer":"^0.1.3","@octokit/auth":"^1.1.1","@octokit/fixtures-server":"^5.0.6","@octokit/graphql":"^4.2.0","@types/node":"^13.1.0","bundlesize":"^0.18.0","chai":"^4.1.2","compression-webpack-plugin":"^3.1.0","cypress":"^3.0.0","glob":"^7.1.2","http-proxy-agent":"^4.0.0","lodash.camelcase":"^4.3.0","lodash.merge":"^4.6.1","lodash.upperfirst":"^4.3.1","lolex":"^5.1.2","mkdirp":"^1.0.0","mocha":"^7.0.1","mustache":"^4.0.0","nock":"^11.3.3","npm-run-all":"^4.1.2","nyc":"^15.0.0","prettier":"^1.14.2","proxy":"^1.0.0","semantic-release":"^17.0.0","sinon":"^8.0.0","sinon-chai":"^3.0.0","sort-keys":"^4.0.0","string-to-arraybuffer":"^1.0.0","string-to-jsdoc-comment":"^1.0.0","typescript":"^3.3.1","webpack":"^4.0.0","webpack-bundle-analyzer":"^3.0.0","webpack-cli":"^3.0.0"},"files":["index.js","index.d.ts","lib","plugins"],"homepage":"https://github.com/octokit/rest.js#readme","keywords":["octokit","github","rest","api-client"],"license":"MIT","name":"@octokit/rest","nyc":{"ignore":["test"]},"publishConfig":{"access":"public"},"release":{"publish":["@semantic-release/npm",{"path":"@semantic-release/github","assets":["dist/*","!dist/*.map.gz"]}]},"repository":{"type":"git","url":"git+https://github.com/octokit/rest.js.git"},"scripts":{"build":"npm-run-all build:*","build:browser":"npm-run-all build:browser:*","build:browser:development":"webpack --mode development --entry . --output-library=Octokit --output=./dist/octokit-rest.js --profile --json > dist/bundle-stats.json","build:browser:production":"webpack --mode production --entry . --plugin=compression-webpack-plugin --output-library=Octokit --output-path=./dist --output-filename=octokit-rest.min.js --devtool source-map","build:ts":"npm run -s update-endpoints:typescript","coverage":"nyc report --reporter=html && open coverage/index.html","generate-bundle-report":"webpack-bundle-analyzer dist/bundle-stats.json --mode=static --no-open --report dist/bundle-report.html","lint":"prettier --check '{lib,plugins,scripts,test}/**/*.{js,json,ts}' 'docs/*.{js,json}' 'docs/src/**/*' index.js README.md package.json","lint:fix":"prettier --write '{lib,plugins,scripts,test}/**/*.{js,json,ts}' 'docs/*.{js,json}' 'docs/src/**/*' index.js README.md package.json","postvalidate:ts":"tsc --noEmit --target es6 test/typescript-validate.ts","prebuild:browser":"mkdirp dist/","pretest":"npm run -s lint","prevalidate:ts":"npm run -s build:ts","start-fixtures-server":"octokit-fixtures-server","test":"nyc mocha test/mocha-node-setup.js \"test/*/**/*-test.js\"","test:browser":"cypress run --browser chrome","update-endpoints":"npm-run-all update-endpoints:*","update-endpoints:fetch-json":"node scripts/update-endpoints/fetch-json","update-endpoints:typescript":"node scripts/update-endpoints/typescript","validate:ts":"tsc --target es6 --noImplicitAny index.d.ts"},"types":"index.d.ts","version":"16.43.1"};
+module.exports = {"_args":[["@octokit/rest@16.43.1","/Users/jdales/dev/limit-open-pull-requests"]],"_from":"@octokit/rest@16.43.1","_id":"@octokit/rest@16.43.1","_inBundle":false,"_integrity":"sha512-gfFKwRT/wFxq5qlNjnW2dh+qh74XgTQ2B179UX5K1HYCluioWj8Ndbgqw2PVqa1NnVJkGHp2ovMpVn/DImlmkw==","_location":"/@octokit/rest","_phantomChildren":{"@octokit/types":"2.15.0","deprecation":"2.3.1","once":"1.4.0","os-name":"3.1.0"},"_requested":{"type":"version","registry":true,"raw":"@octokit/rest@16.43.1","name":"@octokit/rest","escapedName":"@octokit%2frest","scope":"@octokit","rawSpec":"16.43.1","saveSpec":null,"fetchSpec":"16.43.1"},"_requiredBy":["/@actions/github"],"_resolved":"https://registry.npmjs.org/@octokit/rest/-/rest-16.43.1.tgz","_spec":"16.43.1","_where":"/Users/jdales/dev/limit-open-pull-requests","author":{"name":"Gregor Martynus","url":"https://github.com/gr2m"},"bugs":{"url":"https://github.com/octokit/rest.js/issues"},"bundlesize":[{"path":"./dist/octokit-rest.min.js.gz","maxSize":"33 kB"}],"contributors":[{"name":"Mike de Boer","email":"info@mikedeboer.nl"},{"name":"Fabian Jakobs","email":"fabian@c9.io"},{"name":"Joe Gallo","email":"joe@brassafrax.com"},{"name":"Gregor Martynus","url":"https://github.com/gr2m"}],"dependencies":{"@octokit/auth-token":"^2.4.0","@octokit/plugin-paginate-rest":"^1.1.1","@octokit/plugin-request-log":"^1.0.0","@octokit/plugin-rest-endpoint-methods":"2.4.0","@octokit/request":"^5.2.0","@octokit/request-error":"^1.0.2","atob-lite":"^2.0.0","before-after-hook":"^2.0.0","btoa-lite":"^1.0.0","deprecation":"^2.0.0","lodash.get":"^4.4.2","lodash.set":"^4.3.2","lodash.uniq":"^4.5.0","octokit-pagination-methods":"^1.1.0","once":"^1.4.0","universal-user-agent":"^4.0.0"},"description":"GitHub REST API client for Node.js","devDependencies":{"@gimenete/type-writer":"^0.1.3","@octokit/auth":"^1.1.1","@octokit/fixtures-server":"^5.0.6","@octokit/graphql":"^4.2.0","@types/node":"^13.1.0","bundlesize":"^0.18.0","chai":"^4.1.2","compression-webpack-plugin":"^3.1.0","cypress":"^3.0.0","glob":"^7.1.2","http-proxy-agent":"^4.0.0","lodash.camelcase":"^4.3.0","lodash.merge":"^4.6.1","lodash.upperfirst":"^4.3.1","lolex":"^5.1.2","mkdirp":"^1.0.0","mocha":"^7.0.1","mustache":"^4.0.0","nock":"^11.3.3","npm-run-all":"^4.1.2","nyc":"^15.0.0","prettier":"^1.14.2","proxy":"^1.0.0","semantic-release":"^17.0.0","sinon":"^8.0.0","sinon-chai":"^3.0.0","sort-keys":"^4.0.0","string-to-arraybuffer":"^1.0.0","string-to-jsdoc-comment":"^1.0.0","typescript":"^3.3.1","webpack":"^4.0.0","webpack-bundle-analyzer":"^3.0.0","webpack-cli":"^3.0.0"},"files":["index.js","index.d.ts","lib","plugins"],"homepage":"https://github.com/octokit/rest.js#readme","keywords":["octokit","github","rest","api-client"],"license":"MIT","name":"@octokit/rest","nyc":{"ignore":["test"]},"publishConfig":{"access":"public"},"release":{"publish":["@semantic-release/npm",{"path":"@semantic-release/github","assets":["dist/*","!dist/*.map.gz"]}]},"repository":{"type":"git","url":"git+https://github.com/octokit/rest.js.git"},"scripts":{"build":"npm-run-all build:*","build:browser":"npm-run-all build:browser:*","build:browser:development":"webpack --mode development --entry . --output-library=Octokit --output=./dist/octokit-rest.js --profile --json > dist/bundle-stats.json","build:browser:production":"webpack --mode production --entry . --plugin=compression-webpack-plugin --output-library=Octokit --output-path=./dist --output-filename=octokit-rest.min.js --devtool source-map","build:ts":"npm run -s update-endpoints:typescript","coverage":"nyc report --reporter=html && open coverage/index.html","generate-bundle-report":"webpack-bundle-analyzer dist/bundle-stats.json --mode=static --no-open --report dist/bundle-report.html","lint":"prettier --check '{lib,plugins,scripts,test}/**/*.{js,json,ts}' 'docs/*.{js,json}' 'docs/src/**/*' index.js README.md package.json","lint:fix":"prettier --write '{lib,plugins,scripts,test}/**/*.{js,json,ts}' 'docs/*.{js,json}' 'docs/src/**/*' index.js README.md package.json","postvalidate:ts":"tsc --noEmit --target es6 test/typescript-validate.ts","prebuild:browser":"mkdirp dist/","pretest":"npm run -s lint","prevalidate:ts":"npm run -s build:ts","start-fixtures-server":"octokit-fixtures-server","test":"nyc mocha test/mocha-node-setup.js \"test/*/**/*-test.js\"","test:browser":"cypress run --browser chrome","update-endpoints":"npm-run-all update-endpoints:*","update-endpoints:fetch-json":"node scripts/update-endpoints/fetch-json","update-endpoints:typescript":"node scripts/update-endpoints/typescript","validate:ts":"tsc --target es6 --noImplicitAny index.d.ts"},"types":"index.d.ts","version":"16.43.1"};
 
 /***/ }),
 
@@ -2030,6 +2030,7 @@ var PullRequest = (function () {
         this.draft = pullRequestItem.draft;
         this.headRef = pullRequestItem.head.ref;
         this.baseRef = pullRequestItem.base.ref;
+        this.labels = pullRequestItem.labels.map(function (label) { return label.name; });
     }
     return PullRequest;
 }());
@@ -4210,7 +4211,7 @@ var event_1 = __webpack_require__(352);
 var enforcer_1 = __webpack_require__(973);
 function run() {
     return __awaiter(this, void 0, void 0, function () {
-        var triggeringPRNumber, repoToken, repoLimit, perAuthorLimit, _a, owner, repo, client, enforcer, error_1;
+        var triggeringPRNumber, repoToken, repoLimit, perAuthorLimit, perLabelLimit, limitedLabelsInput, limitedLabels, limits, _a, owner, repo, client, enforcer, error_1;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
@@ -4223,9 +4224,24 @@ function run() {
                     repoToken = core.getInput('repo-token');
                     repoLimit = Number(core.getInput('repo-limit'));
                     perAuthorLimit = Number(core.getInput('per-author-limit'));
+                    perLabelLimit = Number(core.getInput('per-label-limit'));
+                    limitedLabelsInput = core.getInput('limited-labels');
+                    limitedLabels = void 0;
+                    if (typeof limitedLabelsInput === 'string') {
+                        limitedLabels = [limitedLabelsInput];
+                    }
+                    else if (Array.isArray(limitedLabelsInput)) {
+                        limitedLabels = limitedLabelsInput;
+                    }
+                    limits = {
+                        repoLimit: repoLimit,
+                        perAuthorLimit: perAuthorLimit,
+                        perLabelLimit: perLabelLimit,
+                        limitedLabels: limitedLabels
+                    };
                     _a = github.context.repo, owner = _a.owner, repo = _a.repo;
                     client = new client_1.Client(repoToken, owner, repo);
-                    enforcer = new enforcer_1.Enforcer(client, { repoLimit: repoLimit, perAuthorLimit: perAuthorLimit }, triggeringPRNumber);
+                    enforcer = new enforcer_1.Enforcer(client, limits, triggeringPRNumber);
                     return [4, enforcer.enforceLimits()];
                 case 1:
                     _b.sent();
@@ -25475,6 +25491,17 @@ function onceStrict (fn) {
 
 "use strict";
 
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -25521,7 +25548,7 @@ var Enforcer = (function () {
     }
     Enforcer.prototype.enforceLimits = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var openPRs, triggeringPR, openPRsForAuthor;
+            var openPRs, triggeringPR;
             var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -25531,23 +25558,96 @@ var Enforcer = (function () {
                         core.debug(JSON.stringify(openPRs));
                         core.info("Using the following limits: at most " + this.limits.repoLimit + " open PRs, at most " + this.limits.perAuthorLimit + " open PRs per author");
                         triggeringPR = openPRs.find(function (pr) { return pr.number === _this.triggeringPrNumber; });
-                        if (!triggeringPR) return [3, 4];
-                        openPRsForAuthor = openPRs.filter(function (pr) { return pr.author === triggeringPR.author; });
-                        core.debug("Current open PRs in the repos is " + openPRs.length);
-                        core.debug("Current open PRs for " + triggeringPR.author + " is " + openPRsForAuthor.length);
-                        if (!(openPRs.length > this.limits.repoLimit || openPRsForAuthor.length > this.limits.perAuthorLimit)) return [3, 3];
+                        if (!triggeringPR) return [3, 8];
+                        if (!this.closeBasedOnRepoLimit(openPRs)) return [3, 3];
                         return [4, this.client.closePullRequest(triggeringPR, "Sorry, this pull request will be closed. The limit for open pull requests was exceeded.")];
                     case 2:
                         _a.sent();
                         _a.label = 3;
-                    case 3: return [3, 5];
+                    case 3:
+                        if (!this.closeBasedOnAuthorLimit(openPRs, triggeringPR)) return [3, 5];
+                        return [4, this.client.closePullRequest(triggeringPR, "Sorry, this pull request will be closed. You have too many open PRs.")];
                     case 4:
-                        core.info("The triggering PR is closed, no action will be taken.");
+                        _a.sent();
                         _a.label = 5;
-                    case 5: return [2];
+                    case 5:
+                        if (!this.closeBasedOnLabelLimits(openPRs, triggeringPR)) return [3, 7];
+                        return [4, this.client.closePullRequest(triggeringPR, "Sorry, this pull request will be closed. The limit for open PRs with these labels was exceeded.")];
+                    case 6:
+                        _a.sent();
+                        _a.label = 7;
+                    case 7: return [3, 9];
+                    case 8:
+                        core.info("The triggering PR is closed, no action will be taken.");
+                        _a.label = 9;
+                    case 9: return [2];
                 }
             });
         });
+    };
+    Enforcer.prototype.closeBasedOnRepoLimit = function (openPrs) {
+        if (!this.limits.repoLimit) {
+            core.debug("There is no repo PR limit set");
+            return false;
+        }
+        core.debug("Current number of open PRs in the repos is " + openPrs.length);
+        if (this.limits.repoLimit > openPrs.length) {
+            return false;
+        }
+        core.debug("There are more PRs open in this repo than the limit allows");
+        return true;
+    };
+    Enforcer.prototype.closeBasedOnAuthorLimit = function (openPRs, triggeringPR) {
+        if (!this.limits.perAuthorLimit) {
+            core.debug("There is no author PR limit set");
+            return false;
+        }
+        var openPRsForAuthor = openPRs.filter(function (pr) { return pr.author === triggeringPR.author; });
+        core.debug("Current number of open PRs for " + triggeringPR.author + " is " + openPRsForAuthor.length);
+        if (this.limits.perAuthorLimit > openPRsForAuthor.length) {
+            return false;
+        }
+        core.debug("The author of this PRs has more PRs open than the limit allows");
+        return true;
+    };
+    Enforcer.prototype.closeBasedOnLabelLimits = function (openPRs, triggeringPR) {
+        var _a = this.limits, perLabelLimit = _a.perLabelLimit, limitedLabels = _a.limitedLabels;
+        if (!perLabelLimit) {
+            core.debug("There are no label PR limits set");
+            return false;
+        }
+        if (!limitedLabels) {
+            core.debug("There are no label specified to be limited");
+            return false;
+        }
+        var limitedLabelsOnPr = triggeringPR.labels.filter((function (prLabel) { return limitedLabels.includes(prLabel); }));
+        if (!limitedLabelsOnPr.length) {
+            core.debug("This PR does not have any labels that need to be limited");
+            return false;
+        }
+        core.debug("This PR has the following limited labels: " + limitedLabelsOnPr.join(', ') + ".");
+        var openPRsWithLimitedLabels = openPRs.filter(function (openPr) {
+            return openPr.labels.some(function (label) { return limitedLabels.includes(label); });
+        });
+        if (!openPRsWithLimitedLabels.length) {
+            core.debug('There are no other open PRs that have limited labels');
+            return false;
+        }
+        var labelCounts = limitedLabelsOnPr.reduce(function (counts, label) {
+            var _a;
+            var currentLabelCount = 1;
+            openPRsWithLimitedLabels.forEach(function (prLabels) {
+                if (prLabels.labels.includes(label)) {
+                    currentLabelCount += 1;
+                }
+            });
+            return __assign(__assign({}, counts), (_a = {}, _a[label] = currentLabelCount, _a));
+        }, {});
+        if (Object.values(labelCounts).every(function (count) { return perLabelLimit > count; })) {
+            return false;
+        }
+        core.debug('There are too many open PRs with these labels');
+        return true;
     };
     return Enforcer;
 }());
