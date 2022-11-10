@@ -12,6 +12,7 @@ export class PullRequest {
   draft: boolean
   headRef: string
   baseRef: string
+  labels: string[]
 
   constructor(pullRequestItem : Octokit.PullsListResponseItem) {
     this.id = pullRequestItem.id
@@ -20,5 +21,6 @@ export class PullRequest {
     this.draft = pullRequestItem.draft
     this.headRef = pullRequestItem.head.ref
     this.baseRef = pullRequestItem.base.ref
+    this.labels = pullRequestItem.labels.map(label => label.name)
   }
 }
