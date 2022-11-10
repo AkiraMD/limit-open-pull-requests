@@ -10,6 +10,12 @@ inputs:
   per-author-limit:
     description: 'Maximum number of pull requests per author'
     required: false
+  per-label-limit:
+    description: 'Maximum number of pull requests with applied labels'
+    required: false
+  limited-labels:
+    description: 'Labels that should be limited'
+    required: false
 runs:
   using: 'node12'
   main: 'dist/index.js'
