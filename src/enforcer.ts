@@ -31,14 +31,17 @@ export class Enforcer {
     if (triggeringPR) {
       if (this.closeBasedOnRepoLimit(openPRs)) {
         await this.client.closePullRequest(triggeringPR, "Sorry, this pull request will be closed. The limit for open pull requests was exceeded.")
+        return
       }
 
       if (this.closeBasedOnAuthorLimit(openPRs, triggeringPR)) {
         await this.client.closePullRequest(triggeringPR, "Sorry, this pull request will be closed. You have too many open PRs.")
+        return
       }
 
       if (this.closeBasedOnLabelLimits(openPRs, triggeringPR)) {
         await this.client.closePullRequest(triggeringPR, "Sorry, this pull request will be closed. The limit for open PRs with these labels was exceeded.")
+        return
       }
     } else {
       core.info("The triggering PR is closed, no action will be taken.");
