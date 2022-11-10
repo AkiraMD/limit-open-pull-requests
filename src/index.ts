@@ -16,7 +16,13 @@ async function run(): Promise<void> {
     const repoLimit = Number(core.getInput('repo-limit'))
     const perAuthorLimit = Number(core.getInput('per-author-limit'))
     const perLabelLimit = Number(core.getInput('per-label-limit'))
-    const limitedLabels = core.getInput('limited-labels')
+    const limitedLabelsInput = core.getInput('limited-labels')
+    let limitedLabels: string[] | undefined
+    if (typeof limitedLabelsInput === 'string') {
+      limitedLabels = [limitedLabelsInput]
+    } else if (Array.isArray(limitedLabelsInput)) {
+      limitedLabels = limitedLabelsInput
+    }
 
     const limits: Limits = {
       repoLimit,
