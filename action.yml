@@ -6,11 +6,10 @@ inputs:
     required: true
   repo-limit:
     description: 'Maximum number of pull requests'
-    required: true
+    required: false
   per-author-limit:
     description: 'Maximum number of pull requests per author'
     required: false
-    default: 2
 runs:
   using: 'node12'
   main: 'dist/index.js'
