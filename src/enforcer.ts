@@ -5,6 +5,8 @@ import * as core from '@actions/core'
 export interface Limits {
   repoLimit?: number,
   perAuthorLimit?: number
+  perLabelLimit?: number
+  limitedLabels?: string[]
 }
 
 export class Enforcer {
@@ -33,6 +35,10 @@ export class Enforcer {
 
       if (this.closeBasedOnAuthorLimit(openPRs, triggeringPR)) {
         await this.client.closePullRequest(triggeringPR, "Sorry, this pull request will be closed. You have too many open PRs.")
+      }
+
+      if (this.closeBasedOnLabelLimits(openPRs, triggeringPR)) {
+        await this.client.closePullRequest(triggeringPR, "Sorry, this pull request will be closed. The limit for open PRs with these labels was exceeded.")
       }
     } else {
       core.info("The triggering PR is closed, no action will be taken.");
@@ -68,6 +74,54 @@ export class Enforcer {
     }
 
     core.debug(`The author of this PRs has more PRs open than the limit allows`)
+    return true
+  }
+
+  closeBasedOnLabelLimits(openPRs: PullRequest[], triggeringPR: PullRequest): boolean {
+    const { perLabelLimit, limitedLabels } = this.limits
+
+    if (!perLabelLimit) {
+      core.debug(`There are no label PR limits set`)
+      return false
+    }
+
+    if (!limitedLabels) {
+      core.debug(`There are no label specified to be limited`)
+      return false
+    }
+
+    const limitedLabelsOnPr = triggeringPR.labels.filter((prLabel => limitedLabels.includes(prLabel)))
+    if (!limitedLabelsOnPr.length){
+      core.debug(`This PR does not have any labels that need to be limited`)
+      return false
+    }
+
+    core.debug(`This PR has the following limited labels: ${limitedLabelsOnPr.join(', ')}.`)
+
+    const openPRsWithLimitedLabels = openPRs.filter(openPr => {
+      return openPr.labels.some(label => limitedLabels.includes(label))
+    })
+
+    if (!openPRsWithLimitedLabels.length) {
+      core.debug('There are no other open PRs that have limited labels')
+      return false
+    }
+
+    const labelCounts: {[label: string]: number} = limitedLabelsOnPr.reduce((counts, label) => {
+      let currentLabelCount = 1
+      openPRsWithLimitedLabels.forEach(prLabels => {
+        if (prLabels.labels.includes(label)){
+          currentLabelCount += 1
+        }
+      })
+      return { ...counts, [label]: currentLabelCount }
+    }, {})
+
+    if (Object.values(labelCounts).every(count => perLabelLimit > count)) {
+      return false
+    }
+
+    core.debug('There are too many open PRs with these labels')
     return true
   }
 }
