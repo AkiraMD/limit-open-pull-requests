@@ -1,6 +1,6 @@
 {
   "name": "pull-request-cop",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "A github action to enforce a max number of pull request in a repo",
   "main": "index.js",
   "scripts": {
