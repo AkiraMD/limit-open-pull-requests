@@ -12,7 +12,7 @@
   "rules": {
     "id-length": ["error", {
       "min": 3,
-      "exceptions": ["id"]
+      "exceptions": ["id", "pr"]
     }]
   }
 }

@@ -1,3 +1,3 @@
 export enum Event {
-  PullRequest = "pull_request",
+  PullRequest = 'pull_request',
 }

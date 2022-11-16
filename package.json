@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "ncc build src/index.ts -o dist",
-    "test": "NODE_ENV=test npx jest --verbose"
+    "test": "NODE_ENV=test npx jest --verbose",
+    "lint": "npx eslint ./src"
   },
   "repository": {
     "type": "git",
