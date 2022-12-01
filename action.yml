@@ -14,7 +14,7 @@ inputs:
     description: 'Maximum number of pull requests with applied labels'
     required: false
   limited-labels:
-    description: 'Name of the labels that should be limited'
+    description: 'Name of the labels that should be limited, provide multiples separated by commas'
     required: false
 runs:
   using: 'node16'

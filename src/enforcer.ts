@@ -69,6 +69,7 @@ export class Enforcer {
 
     core.debug(`Current number of open PRs in the repos is ${openPrs.length}`)
     if (this.limits.repoLimit > openPrs.length) {
+      core.debug(`This is PR has not been limited by the amount of PRs currently open in this repo`)
       return false
     }
 
@@ -88,6 +89,7 @@ export class Enforcer {
     )
 
     if (this.limits.perAuthorLimit > openPRsForAuthor.length) {
+      core.debug(`This is PR has not been limited by the amount of PRs the author has open`)
       return false
     }
 
@@ -103,7 +105,7 @@ export class Enforcer {
       return false
     }
 
-    if (!limitedLabels) {
+    if (!limitedLabels || !limitedLabels.length) {
       core.debug(`There are no label specified to be limited`)
       return false
     }
@@ -138,6 +140,7 @@ export class Enforcer {
     }, {})
 
     if (Object.values(labelCounts).every((count) => perLabelLimit > count)) {
+      core.debug("This PR has not been limited by it's labels")
       return false
     }
 
