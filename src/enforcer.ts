@@ -25,7 +25,11 @@ export class Enforcer {
     core.debug(JSON.stringify(openPRs))
 
     core.info(
-      `Using the following limits: at most ${this.limits.repoLimit} open PRs, at most ${this.limits.perAuthorLimit} open PRs per author`
+      `Using the following limits: at most ${this.limits.repoLimit} open PRs, at most ${
+        this.limits.perAuthorLimit
+      } open PRs per author, at most ${
+        this.limits.perLabelLimit
+      } for each of these labels: ${this.limits.limitedLabels?.join(', ')}`
     )
 
     const triggeringPR: PullRequest | undefined = openPRs.find(

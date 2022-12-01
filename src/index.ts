@@ -16,9 +16,16 @@ async function run(): Promise<void> {
     const triggeringPRNumber: number = github.context.payload.pull_request.number
 
     const repoToken = core.getInput('repo-token')
-    const repoLimit = Number(core.getInput('repo-limit'))
-    const perAuthorLimit = Number(core.getInput('per-author-limit'))
-    const perLabelLimit = Number(core.getInput('per-label-limit'))
+
+    const repoLimitInput = core.getInput('repo-limit')
+    const repoLimit = repoLimitInput ? Number(repoLimitInput) : undefined
+
+    const perAuthorLimitInput = core.getInput('per-author-limit')
+    const perAuthorLimit = perAuthorLimitInput ? Number(perAuthorLimitInput) : undefined
+
+    const perLabelLimitInput = core.getInput('per-label-limit')
+    const perLabelLimit = perLabelLimitInput ? Number(perLabelLimitInput) : undefined
+
     const limitedLabelsInput = core.getInput('limited-labels').split(',')
     let limitedLabels: string[] | undefined
     if (limitedLabelsInput.length > 0) {

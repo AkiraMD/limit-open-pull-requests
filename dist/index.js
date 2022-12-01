@@ -1905,7 +1905,7 @@ var event_1 = __webpack_require__(352);
 var enforcer_1 = __webpack_require__(973);
 function run() {
     return __awaiter(this, void 0, void 0, function () {
-        var triggeringPRNumber, repoToken, repoLimit, perAuthorLimit, perLabelLimit, limitedLabelsInput, limitedLabels, limits, _a, owner, repo, client, enforcer, error_1;
+        var triggeringPRNumber, repoToken, repoLimitInput, repoLimit, perAuthorLimitInput, perAuthorLimit, perLabelLimitInput, perLabelLimit, limitedLabelsInput, limitedLabels, limits, _a, owner, repo, client, enforcer, error_1;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
@@ -1917,9 +1917,12 @@ function run() {
                     }
                     triggeringPRNumber = github.context.payload.pull_request.number;
                     repoToken = core.getInput('repo-token');
-                    repoLimit = Number(core.getInput('repo-limit'));
-                    perAuthorLimit = Number(core.getInput('per-author-limit'));
-                    perLabelLimit = Number(core.getInput('per-label-limit'));
+                    repoLimitInput = core.getInput('repo-limit');
+                    repoLimit = repoLimitInput ? Number(repoLimitInput) : undefined;
+                    perAuthorLimitInput = core.getInput('per-author-limit');
+                    perAuthorLimit = perAuthorLimitInput ? Number(perAuthorLimitInput) : undefined;
+                    perLabelLimitInput = core.getInput('per-label-limit');
+                    perLabelLimit = perLabelLimitInput ? Number(perLabelLimitInput) : undefined;
                     limitedLabelsInput = core.getInput('limited-labels').split(',');
                     limitedLabels = void 0;
                     if (limitedLabelsInput.length > 0) {
@@ -9786,39 +9789,40 @@ var Enforcer = (function () {
         this.triggeringPrNumber = triggeringPrNumber;
     }
     Enforcer.prototype.enforceLimits = function () {
+        var _a;
         return __awaiter(this, void 0, void 0, function () {
             var openPRs, triggeringPR;
             var _this = this;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
+            return __generator(this, function (_b) {
+                switch (_b.label) {
                     case 0: return [4, this.client.getOpenPullRequests()];
                     case 1:
-                        openPRs = _a.sent();
+                        openPRs = _b.sent();
                         core.debug(JSON.stringify(openPRs));
-                        core.info("Using the following limits: at most ".concat(this.limits.repoLimit, " open PRs, at most ").concat(this.limits.perAuthorLimit, " open PRs per author"));
+                        core.info("Using the following limits: at most ".concat(this.limits.repoLimit, " open PRs, at most ").concat(this.limits.perAuthorLimit, " open PRs per author, at most ").concat(this.limits.perLabelLimit, " for each of these labels: ").concat((_a = this.limits.limitedLabels) === null || _a === void 0 ? void 0 : _a.join(', ')));
                         triggeringPR = openPRs.find(function (pr) { return pr.number === _this.triggeringPrNumber; });
                         if (!triggeringPR) return [3, 8];
                         if (!this.closeBasedOnRepoLimit(openPRs)) return [3, 3];
                         return [4, this.client.closePullRequest(triggeringPR, 'Sorry, this pull request will be closed. The limit for open pull requests was exceeded.')];
                     case 2:
-                        _a.sent();
+                        _b.sent();
                         return [2];
                     case 3:
                         if (!this.closeBasedOnAuthorLimit(openPRs, triggeringPR)) return [3, 5];
                         return [4, this.client.closePullRequest(triggeringPR, 'Sorry, this pull request will be closed. You have too many open PRs.')];
                     case 4:
-                        _a.sent();
+                        _b.sent();
                         return [2];
                     case 5:
                         if (!this.closeBasedOnLabelLimits(openPRs, triggeringPR)) return [3, 7];
                         return [4, this.client.closePullRequest(triggeringPR, 'Sorry, this pull request will be closed. The limit for open PRs with these labels was exceeded.')];
                     case 6:
-                        _a.sent();
+                        _b.sent();
                         return [2];
                     case 7: return [3, 9];
                     case 8:
                         core.info('The triggering PR is closed, no action will be taken.');
-                        _a.label = 9;
+                        _b.label = 9;
                     case 9: return [2];
                 }
             });
