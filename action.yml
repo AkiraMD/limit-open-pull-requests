@@ -6,13 +6,18 @@ inputs:
     required: true
   repo-limit:
     description: 'Maximum number of pull requests'
-    required: true
+    required: false
   per-author-limit:
     description: 'Maximum number of pull requests per author'
     required: false
-    default: 2
+  per-label-limit:
+    description: 'Maximum number of pull requests with applied labels'
+    required: false
+  limited-labels:
+    description: 'Name of the labels that should be limited, provide multiples separated by commas'
+    required: false
 runs:
-  using: 'node12'
+  using: 'node16'
   main: 'dist/index.js'
 branding:
   icon: 'shield'
