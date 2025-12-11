@@ -17,7 +17,7 @@ inputs:
     description: 'Name of the labels that should be limited, provide multiples separated by commas'
     required: false
 runs:
-  using: 'node16'
+  using: 'node20'
   main: 'dist/index.js'
 branding:
   icon: 'shield'
