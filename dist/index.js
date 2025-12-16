@@ -30157,12 +30157,12 @@ var Enforcer = (function () {
             return false;
         }
         core.debug("Current number of open PRs in the repos is ".concat(openPrs.length));
-        if (this.limits.repoLimit > openPrs.length) {
-            core.debug("This is PR has not been limited by the amount of PRs currently open in this repo");
-            return false;
+        if (openPrs.length > this.limits.repoLimit) {
+            core.debug("There are more PRs open in this repo than the limit allows");
+            return true;
         }
-        core.debug("There are more PRs open in this repo than the limit allows");
-        return true;
+        core.debug("This PR has not been limited by the amount of PRs currently open in this repo");
+        return false;
     };
     Enforcer.prototype.closeBasedOnAuthorLimit = function (openPRs, triggeringPR) {
         if (!this.limits.perAuthorLimit) {
@@ -30171,12 +30171,12 @@ var Enforcer = (function () {
         }
         var openPRsForAuthor = openPRs.filter(function (pr) { return pr.author === triggeringPR.author; });
         core.debug("Current number of open PRs for ".concat(triggeringPR.author, " is ").concat(openPRsForAuthor.length));
-        if (this.limits.perAuthorLimit > openPRsForAuthor.length) {
-            core.debug("This is PR has not been limited by the amount of PRs the author has open");
-            return false;
+        if (openPRsForAuthor.length > this.limits.perAuthorLimit) {
+            core.debug("The author of this PRs has more PRs open than the limit allows");
+            return true;
         }
-        core.debug("The author of this PRs has more PRs open than the limit allows");
-        return true;
+        core.debug("This PR has not been limited by the amount of PRs the author has open");
+        return false;
     };
     Enforcer.prototype.closeBasedOnLabelLimits = function (openPRs, triggeringPR) {
         var _a = this.limits, perLabelLimit = _a.perLabelLimit, limitedLabels = _a.limitedLabels;
@@ -30213,7 +30213,7 @@ var Enforcer = (function () {
             });
             return __assign(__assign({}, counts), (_a = {}, _a[label] = currentLabelCount, _a));
         }, {});
-        if (Object.values(labelCounts).every(function (count) { return perLabelLimit > count; })) {
+        if (Object.values(labelCounts).every(function (count) { return perLabelLimit >= count; })) {
             core.debug("This PR has not been limited by it's labels");
             return false;
         }
