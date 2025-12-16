@@ -102,7 +102,7 @@ export class Enforcer {
       return true
     }
 
-    core.debug(`This is PR has not been limited by the amount of PRs currently open in this repo`)
+    core.debug(`This PR has not been limited by the amount of PRs currently open in this repo`)
     return false
   }
 
@@ -122,7 +122,7 @@ export class Enforcer {
       return true
     }
 
-    core.debug(`This is PR has not been limited by the amount of PRs the author has open`)
+    core.debug(`This PR has not been limited by the amount of PRs the author has open`)
     return false
   }
 
