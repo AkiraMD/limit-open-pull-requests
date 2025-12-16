@@ -97,13 +97,13 @@ export class Enforcer {
     }
 
     core.debug(`Current number of open PRs in the repos is ${openPrs.length}`)
-    if (this.limits.repoLimit > openPrs.length) {
-      core.debug(`This is PR has not been limited by the amount of PRs currently open in this repo`)
-      return false
+    if (openPrs.length > this.limits.repoLimit) {
+      core.debug(`There are more PRs open in this repo than the limit allows`)
+      return true
     }
 
-    core.debug(`There are more PRs open in this repo than the limit allows`)
-    return true
+    core.debug(`This PR has not been limited by the amount of PRs currently open in this repo`)
+    return false
   }
 
   closeBasedOnAuthorLimit(openPRs: PullRequest[], triggeringPR: PullRequest): boolean {
@@ -117,13 +117,13 @@ export class Enforcer {
       `Current number of open PRs for ${triggeringPR.author} is ${openPRsForAuthor.length}`
     )
 
-    if (this.limits.perAuthorLimit > openPRsForAuthor.length) {
-      core.debug(`This is PR has not been limited by the amount of PRs the author has open`)
-      return false
+    if (openPRsForAuthor.length > this.limits.perAuthorLimit) {
+      core.debug(`The author of this PRs has more PRs open than the limit allows`)
+      return true
     }
 
-    core.debug(`The author of this PRs has more PRs open than the limit allows`)
-    return true
+    core.debug(`This PR has not been limited by the amount of PRs the author has open`)
+    return false
   }
 
   closeBasedOnLabelLimits(openPRs: PullRequest[], triggeringPR: PullRequest): boolean {
@@ -168,7 +168,7 @@ export class Enforcer {
       return { ...counts, [label]: currentLabelCount }
     }, {})
 
-    if (Object.values(labelCounts).every((count) => perLabelLimit > count)) {
+    if (Object.values(labelCounts).every((count) => perLabelLimit >= count)) {
       core.debug("This PR has not been limited by it's labels")
       return false
     }
