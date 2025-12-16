@@ -26,11 +26,12 @@ async function run(): Promise<void> {
     const perLabelLimitInput = core.getInput('per-label-limit')
     const perLabelLimit = perLabelLimitInput ? Number(perLabelLimitInput) : undefined
 
-    const limitedLabelsInput = core.getInput('limited-labels').split(',')
-    let limitedLabels: string[] | undefined
-    if (limitedLabelsInput.length > 0) {
-      limitedLabels = limitedLabelsInput.map((label) => label.trim())
-    }
+    const limitedLabelsRaw = core.getInput('limited-labels')
+    const limitedLabelsInput = limitedLabelsRaw
+      ? limitedLabelsRaw.split(',').map((label) => label.trim()).filter(Boolean)
+      : []
+    const limitedLabels: string[] | undefined =
+      limitedLabelsInput.length > 0 ? limitedLabelsInput : undefined
 
     const limits: Limits = {
       repoLimit,

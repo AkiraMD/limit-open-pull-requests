@@ -24,12 +24,17 @@ export class Enforcer {
     const openPRs = await this.client.getOpenPullRequests()
     core.debug(JSON.stringify(openPRs))
 
+    const perLabelLimitDisplay =
+      this.limits.perLabelLimit !== undefined ? String(this.limits.perLabelLimit) : 'none'
+    const limitedLabelsDisplay =
+      this.limits.limitedLabels && this.limits.limitedLabels.length
+        ? this.limits.limitedLabels.join(', ')
+        : 'none'
+
     core.info(
       `Using the following limits: at most ${this.limits.repoLimit} open PRs, at most ${
         this.limits.perAuthorLimit
-      } open PRs per author, at most ${
-        this.limits.perLabelLimit
-      } for each of these labels: ${this.limits.limitedLabels?.join(', ')}`
+      } open PRs per author, at most ${perLabelLimitDisplay} for each of these labels: ${limitedLabelsDisplay}`
     )
 
     const triggeringPR: PullRequest | undefined = openPRs.find(
@@ -46,10 +51,30 @@ export class Enforcer {
       }
 
       if (this.closeBasedOnAuthorLimit(openPRs, triggeringPR)) {
-        await this.client.closePullRequest(
-          triggeringPR,
-          'Sorry, this pull request will be closed. You have too many open PRs.'
-        )
+        const openPRsForAuthor = openPRs.filter((pr) => pr.author === triggeringPR.author)
+        const sortedOtherOpenPRsForAuthor = openPRsForAuthor
+          .filter((pr) => pr.number !== triggeringPR.number)
+          .sort((a, b) => a.number - b.number)
+
+        const otherOpenPRNumbers = sortedOtherOpenPRsForAuthor.map((pr) => `#${pr.number}`).join(', ')
+        const otherOpenPRDetails = sortedOtherOpenPRsForAuthor
+          .map(
+            (pr) =>
+              `- #${pr.number} (${pr.draft ? 'draft' : 'ready'}; ${pr.headRef} -> ${pr.baseRef})`
+          )
+          .join('\n')
+
+        const limit = this.limits.perAuthorLimit
+        const header =
+          `Sorry, this pull request will be closed. ` +
+          `You have too many open PRs (limit: ${limit}).`
+
+        const details =
+          sortedOtherOpenPRsForAuthor.length > 0
+            ? `\n\nOther open PRs counted for @${triggeringPR.author}: ${otherOpenPRNumbers}\n${otherOpenPRDetails}`
+            : `\n\nNo other open PRs were found for @${triggeringPR.author} (unexpected if limit exceeded).`
+
+        await this.client.closePullRequest(triggeringPR, `${header}${details}`)
         return
       }
 

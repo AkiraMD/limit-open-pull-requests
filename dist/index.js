@@ -30093,40 +30093,59 @@ var Enforcer = (function () {
         this.triggeringPrNumber = triggeringPrNumber;
     }
     Enforcer.prototype.enforceLimits = function () {
-        var _a;
         return __awaiter(this, void 0, void 0, function () {
-            var openPRs, triggeringPR;
+            var openPRs, perLabelLimitDisplay, limitedLabelsDisplay, triggeringPR, openPRsForAuthor, sortedOtherOpenPRsForAuthor, otherOpenPRNumbers, otherOpenPRDetails, limit, header, details;
             var _this = this;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
                     case 0: return [4, this.client.getOpenPullRequests()];
                     case 1:
-                        openPRs = _b.sent();
+                        openPRs = _a.sent();
                         core.debug(JSON.stringify(openPRs));
-                        core.info("Using the following limits: at most ".concat(this.limits.repoLimit, " open PRs, at most ").concat(this.limits.perAuthorLimit, " open PRs per author, at most ").concat(this.limits.perLabelLimit, " for each of these labels: ").concat((_a = this.limits.limitedLabels) === null || _a === void 0 ? void 0 : _a.join(', ')));
+                        perLabelLimitDisplay = this.limits.perLabelLimit !== undefined ? String(this.limits.perLabelLimit) : 'none';
+                        limitedLabelsDisplay = this.limits.limitedLabels && this.limits.limitedLabels.length
+                            ? this.limits.limitedLabels.join(', ')
+                            : 'none';
+                        core.info("Using the following limits: at most ".concat(this.limits.repoLimit, " open PRs, at most ").concat(this.limits.perAuthorLimit, " open PRs per author, at most ").concat(perLabelLimitDisplay, " for each of these labels: ").concat(limitedLabelsDisplay));
                         triggeringPR = openPRs.find(function (pr) { return pr.number === _this.triggeringPrNumber; });
                         if (!triggeringPR) return [3, 8];
                         if (!this.closeBasedOnRepoLimit(openPRs)) return [3, 3];
                         return [4, this.client.closePullRequest(triggeringPR, 'Sorry, this pull request will be closed. The limit for open pull requests was exceeded.')];
                     case 2:
-                        _b.sent();
+                        _a.sent();
                         return [2];
                     case 3:
                         if (!this.closeBasedOnAuthorLimit(openPRs, triggeringPR)) return [3, 5];
-                        return [4, this.client.closePullRequest(triggeringPR, 'Sorry, this pull request will be closed. You have too many open PRs.')];
+                        openPRsForAuthor = openPRs.filter(function (pr) { return pr.author === triggeringPR.author; });
+                        sortedOtherOpenPRsForAuthor = openPRsForAuthor
+                            .filter(function (pr) { return pr.number !== triggeringPR.number; })
+                            .sort(function (a, b) { return a.number - b.number; });
+                        otherOpenPRNumbers = sortedOtherOpenPRsForAuthor.map(function (pr) { return "#".concat(pr.number); }).join(', ');
+                        otherOpenPRDetails = sortedOtherOpenPRsForAuthor
+                            .map(function (pr) {
+                            return "- #".concat(pr.number, " (").concat(pr.draft ? 'draft' : 'ready', "; ").concat(pr.headRef, " -> ").concat(pr.baseRef, ")");
+                        })
+                            .join('\n');
+                        limit = this.limits.perAuthorLimit;
+                        header = "Sorry, this pull request will be closed. " +
+                            "You have too many open PRs (limit: ".concat(limit, ").");
+                        details = sortedOtherOpenPRsForAuthor.length > 0
+                            ? "\n\nOther open PRs counted for @".concat(triggeringPR.author, ": ").concat(otherOpenPRNumbers, "\n").concat(otherOpenPRDetails)
+                            : "\n\nNo other open PRs were found for @".concat(triggeringPR.author, " (unexpected if limit exceeded).");
+                        return [4, this.client.closePullRequest(triggeringPR, "".concat(header).concat(details))];
                     case 4:
-                        _b.sent();
+                        _a.sent();
                         return [2];
                     case 5:
                         if (!this.closeBasedOnLabelLimits(openPRs, triggeringPR)) return [3, 7];
                         return [4, this.client.closePullRequest(triggeringPR, 'Sorry, this pull request will be closed. The limit for open PRs with these labels was exceeded.')];
                     case 6:
-                        _b.sent();
+                        _a.sent();
                         return [2];
                     case 7: return [3, 9];
                     case 8:
                         core.info('The triggering PR is closed, no action will be taken.');
-                        _b.label = 9;
+                        _a.label = 9;
                     case 9: return [2];
                 }
             });
@@ -30272,7 +30291,7 @@ var event_1 = __nccwpck_require__(807);
 var enforcer_1 = __nccwpck_require__(3887);
 function run() {
     return __awaiter(this, void 0, void 0, function () {
-        var triggeringPRNumber, repoToken, repoLimitInput, repoLimit, perAuthorLimitInput, perAuthorLimit, perLabelLimitInput, perLabelLimit, limitedLabelsInput, limitedLabels, limits, _a, owner, repo, client, enforcer, error_1;
+        var triggeringPRNumber, repoToken, repoLimitInput, repoLimit, perAuthorLimitInput, perAuthorLimit, perLabelLimitInput, perLabelLimit, limitedLabelsRaw, limitedLabelsInput, limitedLabels, limits, _a, owner, repo, client, enforcer, error_1;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
@@ -30290,11 +30309,11 @@ function run() {
                     perAuthorLimit = perAuthorLimitInput ? Number(perAuthorLimitInput) : undefined;
                     perLabelLimitInput = core.getInput('per-label-limit');
                     perLabelLimit = perLabelLimitInput ? Number(perLabelLimitInput) : undefined;
-                    limitedLabelsInput = core.getInput('limited-labels').split(',');
-                    limitedLabels = void 0;
-                    if (limitedLabelsInput.length > 0) {
-                        limitedLabels = limitedLabelsInput.map(function (label) { return label.trim(); });
-                    }
+                    limitedLabelsRaw = core.getInput('limited-labels');
+                    limitedLabelsInput = limitedLabelsRaw
+                        ? limitedLabelsRaw.split(',').map(function (label) { return label.trim(); }).filter(Boolean)
+                        : [];
+                    limitedLabels = limitedLabelsInput.length > 0 ? limitedLabelsInput : undefined;
                     limits = {
                         repoLimit: repoLimit,
                         perAuthorLimit: perAuthorLimit,
